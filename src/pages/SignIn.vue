@@ -3,8 +3,14 @@
     <v-card
         :width="width"
         :height="height"
+        :loading="loading"
         outlined
         style="margin: auto;">
+      <v-overlay
+          absolute
+          opacity="0.1"
+          :value="overlay">
+      </v-overlay>
       <v-container
           fluid
           class="pa-10">
@@ -20,20 +26,27 @@
         </v-row>
         <v-container
             id="username_container"
+            v-show="show_account_container"
             fluid>
           <v-row cols="12">
             <v-col
                 cols="12"
                 class="text-center">
-              <h2>Sign in</h2>
-              <p>Use your RENFEI.NET Account</p>
+              <h2>{{ $t("lang.sign_in") }}</h2>
+              <p>{{ $t("lang.use_your") }} RENFEI.NET {{ $t("lang.account") }}</p>
             </v-col>
           </v-row>
           <v-row cols="12">
             <v-col cols="12">
-              <v-form>
+              <v-form
+                  ref="form"
+                  v-model="valid.username"
+              >
                 <v-text-field
-                    label="UserName"
+                    :label="this.$t('lang.user_name')"
+                    :rules="rules_account"
+                    v-model="form.username"
+                    prepend-inner-icon="mdi-account-circle"
                     required
                     outlined
                     clearable
@@ -47,9 +60,9 @@
               <v-btn
                   text
                   color="primary"
-                  class="pl-0 pr-0"
+                  class="pl-0 pr-0 text-capitalize"
               >
-                创建账户
+                {{ $t("lang.create_account") }}
               </v-btn>
             </v-col>
             <v-col
@@ -57,39 +70,49 @@
                 class="text-right">
               <v-btn
                   color="primary"
+                  class="text-capitalize"
+                  @click="next_account"
               >
-                下一步
+                {{ $t("lang.next") }}
               </v-btn>
             </v-col>
           </v-row>
         </v-container>
         <v-container
             id="password_container"
+            v-show="show_password_container"
             fluid>
           <v-row cols="12">
             <v-col
                 cols="12"
                 class="text-center">
-              <h2>Welcome</h2>
+              <h2>{{ $t("lang.welcome") }}</h2>
               <v-btn
                   rounded
                   depressed
+                  class="text-capitalize"
               >
                 <v-icon left>
                   mdi-account-circle
                 </v-icon>
-                renfei
+                {{ form.username }}
               </v-btn>
             </v-col>
           </v-row>
           <v-row cols="12">
             <v-col cols="12">
-              <v-form>
+              <v-form
+                  ref="form"
+                  v-model="valid.password"
+              >
                 <v-text-field
-                    label="Password"
+                    :label="this.$t('lang.password')"
                     :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showPassword ? 'text' : 'password'"
+                    :rules="rules_password"
                     @click:append="showPassword = !showPassword"
+                    v-model="form.password"
+                    prepend-inner-icon="mdi-lock"
                     required
                     outlined
                     clearable
@@ -103,18 +126,79 @@
               <v-btn
                   text
                   color="primary"
-                  class="pl-0 pr-0"
+                  class="pl-0 pr-0 text-capitalize"
               >
-                忘记密码
+                {{ $t("lang.forgot_password") }}
               </v-btn>
             </v-col>
             <v-col
                 cols="6"
-                class="text-right">
+                class="text-right text-capitalize">
               <v-btn
                   color="primary"
+                  class="text-capitalize"
+                  @click="next_password"
               >
-                登 录
+                {{ $t("lang.next") }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-container
+            id="tow_step_container"
+            v-show="show_2fa_container"
+            fluid>
+          <v-row cols="12">
+            <v-col
+                cols="12"
+                class="text-center">
+              <h2>{{ $t("lang.two_factor_authentication") }}</h2>
+              <v-btn
+                  rounded
+                  depressed
+                  class="text-capitalize"
+              >
+                <v-icon left>
+                  mdi-account-circle
+                </v-icon>
+                {{ form.username }}
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row cols="12">
+            <v-col cols="12">
+              <v-form
+                  ref="form"
+                  v-model="valid.code2fa"
+              >
+                <v-text-field
+                    :label="this.$t('lang._2fa')"
+                    :rules="rules_2fa"
+                    type="text"
+                    counter="6"
+                    maxlength="6"
+                    v-model="form.code2fa"
+                    prepend-inner-icon="mdi-counter"
+                    required
+                    outlined
+                    clearable
+                ></v-text-field>
+              </v-form>
+            </v-col>
+          </v-row>
+          <v-row cols="12">
+            <v-col
+                cols="6">
+            </v-col>
+            <v-col
+                cols="6"
+                class="text-right text-capitalize">
+              <v-btn
+                  color="primary"
+                  class="text-capitalize"
+                  @click="next_2fa"
+              >
+                {{ $t("lang.next") }}
               </v-btn>
             </v-col>
           </v-row>
@@ -125,13 +209,13 @@
           <v-col
               cols="6">
             <v-select
-                v-model="e1"
-                :items="states"
+                :items="locale"
+                v-model="this.$i18n.locale"
                 menu-props="auto"
                 label="Select"
                 hide-details
-                prepend-icon="mdi-translate"
                 single-line
+                @change="lang_change"
             ></v-select>
           </v-col>
           <v-col
@@ -151,28 +235,89 @@
 </template>
 <script>
 import utils from '@/util/Utils';
+import locale from '@/libs/locale';
+import {getLocalStore} from '@/util/Storage'
 
 export default {
   name: 'signIn',
   data() {
     return {
+      overlay: false,
       showPassword: false,
       e1: 'zh-CN',
-      states: [
-        {
-          text: '简体中文',
-          value: 'zh-CN'
-        }
+      locale: locale.list(),
+      show_account_container: true,
+      show_password_container: false,
+      show_2fa_container: false,
+      loading: false,
+      valid: {
+        username: false,
+        password: false,
+        code2fa: false,
+      },
+      form: {
+        username: "i@renfei.net",
+        password: "password",
+        code2fa: "123456",
+      },
+      rules_account: [
+        v => !!v || this.$t('lang.required'),
+      ],
+      rules_password: [
+        v => !!v || this.$t('lang.required'),
+      ],
+      rules_2fa: [
+        v => !!v || this.$t('lang.required'),
+        v => v.length <= 6 || this.$t('lang.required') + ' 6 ' + this.$t('lang.characters'),
       ],
     }
   },
   beforeCreate() {
     utils.loadTheme(this);
   },
-  methods:{
-    setTheme(){
+  methods: {
+    setTheme() {
       utils.theme(this);
-    }
+    },
+    lang_change(any) {
+      locale.setLocale(any);
+      this.$i18n.locale = getLocalStore('locale');
+    },
+    next_account() {
+      this.card_loading();
+      if (this.valid.username) {
+        this.show_account_container = false;
+        this.show_password_container = true;
+      }
+      this.card_un_loading();
+    },
+    next_password() {
+      this.card_loading();
+      if (this.valid.password) {
+        this.show_account_container = false;
+        this.show_password_container = false;
+        this.show_2fa_container = true;
+      }
+      this.card_un_loading();
+    },
+    next_2fa() {
+      this.card_loading();
+      if (this.valid.password) {
+        this.show_account_container = false;
+        this.show_password_container = false;
+        this.show_2fa_container = false;
+        this.$router.push({name:'home'})
+      }
+      this.card_un_loading();
+    },
+    card_loading() {
+      this.overlay = true;
+      this.loading = true;
+    },
+    card_un_loading() {
+      this.overlay = false;
+      this.loading = false;
+    },
   },
   computed: {
     // eslint-disable-next-line vue/return-in-computed-property
