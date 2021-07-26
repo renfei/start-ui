@@ -1,5 +1,15 @@
 import Console from "@/Console"
-import Home from "@/pages/Home"
+import Home from "@/pages/console/Home"
+import SignIn from "@/pages/SignIn"
+
+const signInRouter = {
+    path: '/signIn',
+    name: 'signIn',
+    meta: {
+        title: '登录 '
+    },
+    component: SignIn
+};
 
 const consoleRouter = {
     path: '/',
@@ -14,6 +24,7 @@ const consoleRouter = {
 }
 
 const routers = [
+    signInRouter,
     consoleRouter
 ];
 export default routers

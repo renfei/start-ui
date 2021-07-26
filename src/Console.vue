@@ -76,7 +76,7 @@
         flat>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
-      <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
+      <v-btn icon @click="setTheme">
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
     </v-app-bar>
@@ -89,7 +89,9 @@
 </template>
 
 <script>
+import utils from '@/util/Utils';
 import watermark from '@/util/WarterMark'
+
 export default {
   name: 'Console',
 
@@ -106,6 +108,14 @@ export default {
       ['Delete', 'mdi-delete'],
     ],
   }),
+  beforeCreate() {
+    utils.loadTheme(this);
+  },
+  methods:{
+    setTheme(){
+      utils.theme(this);
+    }
+  },
   mounted: function () {
     watermark.set('任霏','i@renfei.net')
   },
