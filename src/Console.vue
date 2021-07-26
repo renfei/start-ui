@@ -89,6 +89,7 @@
 </template>
 
 <script>
+import watermark from '@/util/WarterMark'
 export default {
   name: 'Console',
 
@@ -105,6 +106,13 @@ export default {
       ['Delete', 'mdi-delete'],
     ],
   }),
+  mounted: function () {
+    watermark.set('renfei(i@renfei.net)')
+  },
+  beforeDestroy () {
+    watermark.set('')
+  }
+
 };
 </script>
 
