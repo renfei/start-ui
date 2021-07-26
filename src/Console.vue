@@ -107,10 +107,10 @@ export default {
     ],
   }),
   mounted: function () {
-    watermark.set('renfei(i@renfei.net)')
+    watermark.set('任霏','i@renfei.net')
   },
   beforeDestroy () {
-    watermark.set('')
+    watermark.set('','')
   }
 
 };
