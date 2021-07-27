@@ -8,6 +8,7 @@ export const lang = {
     create: "创建",
     create_account: "创建账户",
     characters:"字符",
+    close: "关闭",
     // d
     // e
     // f

@@ -8,6 +8,7 @@ export const lang = {
     create: "Create",
     create_account: "Create account",
     characters:"Characters",
+    close: "Close",
     // d
     // e
     // f
