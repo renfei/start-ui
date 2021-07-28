@@ -91,6 +91,7 @@
 <script>
 import utils from '@/util/Utils';
 import watermark from '@/util/WarterMark'
+import {getSessionStore} from '@/util/Storage';
 
 export default {
   name: 'Console',
@@ -110,17 +111,21 @@ export default {
   }),
   beforeCreate() {
     utils.loadTheme(this);
+    let token = getSessionStore("");
+    if (token == null || token === undefined || token === "") {
+      this.$router.push({name: 'signIn'});
+    }
   },
-  methods:{
-    setTheme(){
+  methods: {
+    setTheme() {
       utils.theme(this);
     }
   },
   mounted: function () {
-    watermark.set('任霏','i@renfei.net')
+    watermark.set('任霏', 'i@renfei.net')
   },
-  beforeDestroy () {
-    watermark.set('','')
+  beforeDestroy() {
+    watermark.set('', '')
   }
 
 };

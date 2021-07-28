@@ -4,7 +4,7 @@ import router from '../router/index';
 import Message from '@/commponents/Message/index'
 
 // 统一请求路径前缀
-let base = '';
+let base = '/v1';
 // 超时设定
 axios.defaults.timeout = 15000;
 

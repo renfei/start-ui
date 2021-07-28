@@ -91,6 +91,7 @@
                   rounded
                   depressed
                   class="text-capitalize"
+                  @click="back_username"
               >
                 <v-icon left>
                   mdi-account-circle
@@ -157,6 +158,7 @@
                   rounded
                   depressed
                   class="text-capitalize"
+                  @click="back_username"
               >
                 <v-icon left>
                   mdi-account-circle
@@ -236,7 +238,9 @@
 <script>
 import utils from '@/util/Utils';
 import locale from '@/libs/locale';
-import {getLocalStore} from '@/util/Storage'
+import encryption from "@/libs/encryption";
+import {getLocalStore, setSessionStore} from '@/util/Storage';
+import {signIn} from '@/api/start/auth';
 
 export default {
   name: 'signIn',
@@ -294,21 +298,26 @@ export default {
     next_password() {
       this.card_loading();
       if (this.valid.password) {
-        this.show_account_container = false;
-        this.show_password_container = false;
-        this.show_2fa_container = true;
+        this.doSignIn();
+      } else {
+        this.card_un_loading();
       }
-      this.card_un_loading();
     },
     next_2fa() {
       this.card_loading();
       if (this.valid.password) {
-        this.show_account_container = false;
-        this.show_password_container = false;
-        this.show_2fa_container = false;
-        this.$router.push({name:'home'})
+        this.doSignIn();
       }
       this.card_un_loading();
+    },
+    back_username() {
+      this.show_account_container = true;
+      this.show_password_container = false;
+      this.show_password_container = false;
+      this.show_2fa_container = false;
+      this.form.username = "";
+      this.form.password = "";
+      this.form.code2fa = "";
     },
     card_loading() {
       this.overlay = true;
@@ -317,6 +326,32 @@ export default {
     card_un_loading() {
       this.overlay = false;
       this.loading = false;
+    },
+    doSignIn() {
+      encryption.aesEncrypt(this.form.password).then(val => {
+        //登陆
+        let params = {
+          userName: this.form.username,
+          password: val.content,
+          keyId: val.KeyId,
+          tOtp: this.form.code2fa,
+          useVerCode: false
+        };
+        signIn(params).then(res => {
+          if (res.code === 200) {
+            setSessionStore('accessToken', res.data.token);
+            this.$router.push({name: 'home'});
+          } else if (res.code === 402) {
+            this.card_un_loading();
+            this.show_account_container = false;
+            this.show_password_container = false;
+            this.show_2fa_container = true;
+          } else {
+            this.card_un_loading();
+            this.$message.error(res.message);
+          }
+        });
+      });
     },
   },
   computed: {
