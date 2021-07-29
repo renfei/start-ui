@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {getSessionStore, removeSessionStore} from '@/util/Storage';
 import router from '../router/index';
-import Message from '@/commponents/Message/index'
+import Message from '@/plugins/snackbar'
 
 // 统一请求路径前缀
 let base = '/v1';
@@ -11,7 +11,7 @@ axios.defaults.timeout = 15000;
 axios.interceptors.request.use(config => {
     return config;
 }, err => {
-    Message("请求超时", 'error');
+    Message.error("请求超时");
     return Promise.resolve(err);
 });
 
@@ -57,7 +57,7 @@ axios.interceptors.response.use(response => {
         return Promise.resolve(err);
     }
     // 返回状态码不为200时候的错误处理
-    Message(err.toString(), 'error');
+    Message.error(err.toString());
     return Promise.resolve(err);
 });
 

@@ -3,7 +3,7 @@ import NodeRSA from 'node-rsa'
 import CryptoJS from 'crypto-js'
 import {getSessionStore, setSessionStore} from '@/util/Storage';
 import {getRSAkey, uploadRSAkey} from "@/api/start/auth";
-import Message from '@/commponents/Message/index'
+import Message from '@/plugins/snackbar'
 
 let encryption = {};
 

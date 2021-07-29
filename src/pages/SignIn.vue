@@ -292,6 +292,8 @@ export default {
       if (this.valid.username) {
         this.show_account_container = false;
         this.show_password_container = true;
+      } else {
+        this.$message.info("请输入用户名后再继续");
       }
       this.card_un_loading();
     },
@@ -300,13 +302,16 @@ export default {
       if (this.valid.password) {
         this.doSignIn();
       } else {
+        this.$message.info("请输入密码后再继续");
         this.card_un_loading();
       }
     },
     next_2fa() {
       this.card_loading();
-      if (this.valid.password) {
+      if (this.valid.code2fa) {
         this.doSignIn();
+      } else {
+        this.$message.info("请输入2FA验证码后再继续");
       }
       this.card_un_loading();
     },
