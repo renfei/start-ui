@@ -76,19 +76,82 @@
         flat>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
-      <v-select
-          :items="locale"
-          v-model="this.$i18n.locale"
-          menu-props="auto"
-          label="Select"
-          hide-details
-          single-line
-          style="max-width: 140px;"
-          @change="lang_change"
-      ></v-select>
+      <v-menu
+          open-on-hover
+          offset-y
+          close-on-content-click
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+              v-bind="attrs"
+              v-on="on"
+              icon
+          >
+            <v-icon>mdi-translate</v-icon>
+          </v-btn>
+        </template>
+        <v-list
+            nav
+            dense
+        >
+          <v-list-item-group
+              v-model="langSelectedItem"
+          >
+            <v-list-item
+                v-for="(item, index) in locale"
+                :key="index"
+            >
+              <v-list-item-content>
+                <v-list-item-title @click="lang_change(item.value)">{{ item.text }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-menu>
       <v-btn icon @click="setTheme">
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
+      <v-menu
+          open-on-hover
+          offset-y
+          close-on-content-click
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-avatar
+              v-bind="attrs"
+              v-on="on"
+              class="hidden-sm-and-down"
+              color="grey darken-1 shrink"
+              size="32"
+          >
+            霏
+          </v-avatar>
+        </template>
+          <v-list
+              nav
+              dense
+          >
+            <v-list-item-group
+            >
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Menu1</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Menu2</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider inset></v-divider>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Menu3</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+      </v-menu>
     </v-app-bar>
     <v-main>
       <v-container fluid>
@@ -110,6 +173,8 @@ export default {
 
   data: () => ({
     isRouterAlive: true,
+    langSelectedItem: {},
+    avatarSelectedItem: {},
     locale: locale.list(),
     drawer: null,
     admins: [
