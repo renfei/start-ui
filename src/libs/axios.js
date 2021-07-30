@@ -1,4 +1,5 @@
 import axios from 'axios';
+import i18n from '@/i18n/i18n';
 import {getSessionStore, removeSessionStore} from '@/util/Storage';
 import router from '../router/index';
 import Message from '@/plugins/snackbar'
@@ -46,19 +47,21 @@ axios.interceptors.response.use(response => {
         default:
             return data;
     }
-
     return data;
 }, (err) => {
-    console.error(JSON.stringify(err))
     if (err.message === "Request failed with status code 401") {
         removeSessionStore('userInfo');
         removeSessionStore('accessToken');
         router.push('/signin');
         return Promise.resolve(err);
+    } else if (err.toString() === "Error: Request failed with status code 403") {
+        Message.error(i18n.t('lang.forbidden_403'));
+        return Promise.resolve(err);
+    } else {
+        // 返回状态码不为200时候的错误处理
+        Message.error(err.toString());
+        return Promise.resolve(err);
     }
-    // 返回状态码不为200时候的错误处理
-    Message.error(err.toString());
-    return Promise.resolve(err);
 });
 
 export const getRequest = (url, params) => {

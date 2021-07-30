@@ -3,33 +3,53 @@ export const lang = {
     _2fa: "2FA",
     // a
     account: "账户",
+    actions: "操作",
+    api: "接口",
     // b
+    button: "按钮",
     // c
+    cancel: "取消",
     create: "创建",
     create_account: "创建账户",
     characters:"字符",
     close: "关闭",
     // d
+    delete_alert: "是否确认删除此数据？",
     // e
+    edit_item: "编辑",
     // f
     forgot_password: "忘记密码",
+    forbidden_403: "权限不足，访问被禁止！",
     // g
     // h
     // i
     // j
     // k
     // l
+    loading: "载入中...",
     // m
     max: "最大值",
+    menu: "菜单",
     // n
     next: "下一步",
+    new_item: "新建",
+    no_data: "暂无数据",
     // o
+    ok: "确定",
     // p
     password: "密码",
     // q
     // r
     required: "必须项",
+    request_method:"请求方式",
+    resource_name: "资源名称",
+    resource_type: "资源类型",
+    resource_url: "资源地址",
+    resource_management: "资源管理",
+    resource_alert: "此功能仅限专业运维技术人员使用，禁止普通管理员或用户操作！",
+    reset: "重置",
     // s
+    save: "保存",
     sign_in: "登录",
     // t
     two_factor_authentication: "双因素认证",

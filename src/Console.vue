@@ -76,13 +76,23 @@
         flat>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
+      <v-select
+          :items="locale"
+          v-model="this.$i18n.locale"
+          menu-props="auto"
+          label="Select"
+          hide-details
+          single-line
+          style="max-width: 140px;"
+          @change="lang_change"
+      ></v-select>
       <v-btn icon @click="setTheme">
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
     </v-app-bar>
     <v-main>
       <v-container fluid>
-        <router-view></router-view>
+        <router-view v-if="isRouterAlive"></router-view>
       </v-container>
     </v-main>
   </v-app>
@@ -91,12 +101,16 @@
 <script>
 import utils from '@/util/Utils';
 import watermark from '@/util/WarterMark'
-import {getSessionStore} from '@/util/Storage';
+import {getLocalStore, getSessionStore} from '@/util/Storage';
+import {myInfo} from '@/api/start/auth';
+import locale from "@/libs/locale";
 
 export default {
   name: 'Console',
 
   data: () => ({
+    isRouterAlive: true,
+    locale: locale.list(),
     drawer: null,
     admins: [
       ['Management', 'mdi-account-multiple-outline'],
@@ -111,18 +125,36 @@ export default {
   }),
   beforeCreate() {
     utils.loadTheme(this);
-    let token = getSessionStore("");
+    let token = getSessionStore("accessToken");
     if (token == null || token === undefined || token === "") {
       this.$router.push({name: 'signIn'});
+    }
+  },
+  provide() {
+    return {
+      reload: this.reload
     }
   },
   methods: {
     setTheme() {
       utils.theme(this);
-    }
+    },
+    lang_change(any) {
+      locale.setLocale(any);
+      this.$i18n.locale = getLocalStore('locale');
+      this.reload();
+    },
+    reload: function () {
+      this.isRouterAlive = false;
+      this.$nextTick(function () {
+        this.isRouterAlive = true;
+      });
+    },
   },
   mounted: function () {
-    watermark.set('任霏', 'i@renfei.net')
+    myInfo().then(res => {
+      watermark.set(res.data.userName, res.data.email)
+    });
   },
   beforeDestroy() {
     watermark.set('', '')

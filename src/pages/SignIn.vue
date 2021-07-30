@@ -260,8 +260,8 @@ export default {
         code2fa: false,
       },
       form: {
-        username: "i@renfei.net",
-        password: "password",
+        username: "demo@renfei.net",
+        password: "tests",
         code2fa: "123456",
       },
       rules_account: [

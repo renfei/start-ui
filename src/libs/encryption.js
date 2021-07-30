@@ -76,7 +76,7 @@ encryption.getAESKey = () => {
                             let aesKey = encryption.rsaDecrypt(getSessionStore("ClientPrivateKey"), serverRes.data.privateKey);
                             let keys = {};
                             keys.aesKey = aesKey;
-                            keys.aesKeyId = serverRes.data.keyid;
+                            keys.aesKeyId = serverRes.data.keyId;
                             // 存储下来 AES 秘钥，现在这个秘钥全世界只有你知和我知，不要公开，不要在网络上明文传输
                             setSessionStore("aesKey", aesKey);
                             setSessionStore("aesKeyId", serverRes.data.keyId);
