@@ -19,3 +19,7 @@ export const editPermission = (params) => {
 export const deletePermissionById = (params) => {
     return deleteRequest(Signature('/api/sys/permission'), params)
 };
+
+export const getSysMenu = (params) => {
+    return getRequest(Signature('/api/sys/menu'), params)
+};
