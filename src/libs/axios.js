@@ -54,7 +54,7 @@ axios.interceptors.response.use(response => {
         removeSessionStore('accessToken');
         router.push('/signin');
         return Promise.resolve(err);
-    } else if (err.toString() === "Error: Request failed with status code 403") {
+    } else if (err.toString() === "Request failed with status code 403") {
         Message.error(i18n.t('lang.forbidden_403'));
         return Promise.resolve(err);
     } else {

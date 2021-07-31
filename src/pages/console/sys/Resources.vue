@@ -164,7 +164,11 @@
 
 <script>
 import i18n from '@/i18n/i18n';
-import {getAllPermissionList} from '@/api/start/sys'
+import {
+  getAllPermissionList,
+  editPermission,
+  deletePermissionById
+} from '@/api/start/sys'
 
 export default {
   data: () => ({
@@ -265,8 +269,16 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
+      deletePermissionById({
+        id: this.editedItem.id
+      }).then(res => {
+        if (res.code === 200) {
+          this.initialize();
+        } else {
+          this.$message.error(res.message);
+        }
+        this.closeDelete()
+      });
     },
 
     close() {
@@ -291,7 +303,14 @@ export default {
       } else {
         this.desserts.push(this.editedItem)
       }
-      this.close()
+      editPermission(this.editedItem).then(res => {
+        if (res.code === 200) {
+          this.initialize();
+        } else {
+          this.$message.error(res.message);
+        }
+        this.close()
+      });
     },
   },
 }
