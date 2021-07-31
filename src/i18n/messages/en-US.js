@@ -11,7 +11,7 @@ export const lang = {
     cancel: "Cancel",
     create: "Create",
     create_account: "Create account",
-    characters:"Characters",
+    characters: "Characters",
     close: "Close",
     // d
     delete_alert: "Are you sure you want to delete this item?",
@@ -23,6 +23,7 @@ export const lang = {
     // g
     // h
     // i
+    is_new_window: "New Window",
     // j
     // k
     // l
@@ -30,18 +31,25 @@ export const lang = {
     // m
     max: "Max",
     menu: "Menu",
+    menu_icon: "Icon",
+    menu_management: "Menu Management",
+    menu_name: "Name",
+    menu_link: "Link",
     // n
     next: "Next",
     new_item: "New Item",
+    no: "No",
     no_data: "No data",
     // o
+    order_num: "Sort Number",
     ok: "OK",
     // p
     password: "Password",
+    parent_id: "Parent ID",
     // q
     // r
     required: "Required",
-    request_method:"Request Method",
+    request_method: "Request Method",
     resource_name: "Resource Name",
     resource_type: "Resource Type",
     resource_url: "Resource Url",
@@ -62,6 +70,7 @@ export const lang = {
     welcome: "Welcome",
     // x
     // y
+    yes: "Yes",
     your: "Your"
     // z
 }

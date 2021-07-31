@@ -1,4 +1,5 @@
 'use strict'
+import {getLocalStore} from '@/util/Storage'
 
 let watermark = {}
 
@@ -16,7 +17,12 @@ let setWatermark = (userName, userId) => {
     let cans = can.getContext('2d')
     cans.rotate(-15 * Math.PI / 180)
     cans.font = '20px Verdana'
-    cans.fillStyle = 'rgba(200, 200, 200, 0.20)'
+    let theme = getLocalStore("theme_dark");
+    if (theme === null || theme === undefined || theme === "false") {
+        cans.fillStyle = 'rgba(200, 200, 200, 0.20)'
+    } else {
+        cans.fillStyle = 'rgba(0, 0, 0, 0.20)'
+    }
     cans.textAlign = 'left'
     cans.textBaseline = 'Middle'
     cans.fillText(userName, can.width / 3, can.height / 2)

@@ -2,6 +2,7 @@ import Console from "@/Console"
 import Home from "@/pages/console/Home"
 import SignIn from "@/pages/SignIn"
 import Resources from "@/pages/console/sys/Resources"
+import Menu from "@/pages/console/sys/Menu"
 
 const signInRouter = {
     path: '/signIn',
@@ -23,6 +24,9 @@ const consoleRouter = {
         },
         {
             path: 'console/sys/resources', meta: {title: "Resources"}, name: 'resources', component: Resources
+        },
+        {
+            path: 'console/sys/menu', meta: {title: "Menu"}, name: 'menu', component: Menu
         },
     ]
 }

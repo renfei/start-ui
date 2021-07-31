@@ -23,3 +23,15 @@ export const deletePermissionById = (params) => {
 export const getSysMenu = (params) => {
     return getRequest(Signature('/api/sys/menu'), params)
 };
+
+export const getAllMenu = (params) => {
+    return getRequest(Signature('/api/sys/menu/all'), params)
+};
+
+export const editSysMenu = (params) => {
+    return postRequest(Signature('/api/sys/menu'), params)
+};
+
+export const deleteSysMenu = (params) => {
+    return deleteRequest(Signature('/api/sys/menu'), params)
+};

@@ -11,7 +11,7 @@ export const lang = {
     cancel: "取消",
     create: "创建",
     create_account: "创建账户",
-    characters:"字符",
+    characters: "字符",
     close: "关闭",
     // d
     delete_alert: "是否确认删除此数据？",
@@ -23,6 +23,7 @@ export const lang = {
     // g
     // h
     // i
+    is_new_window: "新窗口打开",
     // j
     // k
     // l
@@ -30,18 +31,25 @@ export const lang = {
     // m
     max: "最大值",
     menu: "菜单",
+    menu_icon: "菜单图标",
+    menu_management: "菜单管理",
+    menu_name: "菜单名称",
+    menu_link: "菜单链接",
     // n
     next: "下一步",
     new_item: "新建",
+    no: "否",
     no_data: "暂无数据",
     // o
+    order_num: "排序序号",
     ok: "确定",
     // p
     password: "密码",
+    parent_id: "父级ID",
     // q
     // r
     required: "必须项",
-    request_method:"请求方式",
+    request_method: "请求方式",
     resource_name: "资源名称",
     resource_type: "资源类型",
     resource_url: "资源地址",
@@ -62,6 +70,7 @@ export const lang = {
     welcome: "欢迎",
     // x
     // y
+    yes: "是",
     your: "您的"
     // z
 }

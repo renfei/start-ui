@@ -15,7 +15,7 @@
       <v-toolbar
           flat
       >
-        <v-toolbar-title>{{ $t("lang.resource_management") }}</v-toolbar-title>
+        <v-toolbar-title>{{ $t("lang.menu_management") }}</v-toolbar-title>
         <v-divider
             class="mx-4"
             inset
@@ -61,31 +61,9 @@
                       md="12"
                   >
                     <v-text-field
-                        v-model="editedItem.resourceName"
-                        label="资源名称"
+                        v-model="editedItem.menuName"
+                        label="菜单名称"
                     ></v-text-field>
-                  </v-col>
-                  <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                  >
-                    <v-select
-                        v-model="editedItem.resourceType"
-                        label="资源类型"
-                        :items="resource_type_items"
-                    ></v-select>
-                  </v-col>
-                  <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                  >
-                    <v-select
-                        v-model="editedItem.requestMethod"
-                        label="请求方式"
-                        :items="request_method_items"
-                    ></v-select>
                   </v-col>
                   <v-col
                       cols="12"
@@ -93,8 +71,50 @@
                       md="12"
                   >
                     <v-text-field
-                        v-model="editedItem.resourceUrl"
-                        label="资源地址"
+                        v-model="editedItem.menuLink"
+                        label="菜单链接"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                      cols="12"
+                      sm="12"
+                      md="6"
+                  >
+                    <v-text-field
+                        v-model="editedItem.menuIcon"
+                        label="菜单图标"
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col
+                      cols="12"
+                      sm="12"
+                      md="6"
+                  >
+                    <v-select
+                        v-model="editedItem.isNewWindow"
+                        label="是否新窗口打开"
+                        :items="isNewWindow"
+                    ></v-select>
+                  </v-col>
+                  <v-col
+                      cols="12"
+                      sm="4"
+                      md="6"
+                  >
+                    <v-text-field
+                        v-model="editedItem.parentId"
+                        label="父级ID"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                      cols="12"
+                      sm="4"
+                      md="6"
+                  >
+                    <v-text-field
+                        v-model="editedItem.orderNum"
+                        label="排序编号"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -151,15 +171,26 @@
     <template v-slot:no-data>
       {{ $t("lang.no_data") }}
     </template>
+    <template v-slot:item.menuIcon="{ item }">
+      <v-icon
+          small
+          class="mr-2"
+      >
+        {{ item.menuIcon }}
+      </v-icon>
+    </template>
+    <template v-slot:item.isNewWindow="{ item }">
+      {{ item.isNewWindow ? $t("lang.yes") : $t("lang.no") }}
+    </template>
   </v-data-table>
 </template>
 
 <script>
 import i18n from '@/i18n/i18n';
 import {
-  getAllPermissionList,
-  editPermission,
-  deletePermissionById
+  getAllMenu,
+  editSysMenu,
+  deleteSysMenu
 } from '@/api/start/sys'
 
 export default {
@@ -175,38 +206,38 @@ export default {
       serverItemsLength: 0,
     },
     headers: [
-      {text: i18n.t("lang.resource_name"), value: 'resourceName',},
-      {text: i18n.t("lang.resource_type"), value: 'resourceType'},
-      {text: i18n.t("lang.request_method"), value: 'requestMethod'},
-      {text: i18n.t("lang.resource_url"), value: 'resourceUrl'},
+      {text: "ID", value: 'id',},
+      {text: i18n.t("lang.menu_icon"), value: 'menuIcon'},
+      {text: i18n.t("lang.menu_name"), value: 'menuName',},
+      {text: i18n.t("lang.menu_link"), value: 'menuLink'},
+      {text: i18n.t("lang.is_new_window"), value: 'isNewWindow'},
+      {text: i18n.t("lang.parent_id"), value: 'parentId'},
+      {text: i18n.t("lang.order_num"), value: 'orderNum'},
       {text: i18n.t("lang.actions"), value: 'actions'},
     ],
     desserts: [],
     editedIndex: -1,
     editedItem: {
       id: null,
-      resourceName: '',
-      resourceType: 'API',
-      requestMethod: 'GET',
-      resourceUrl: '',
+      menuName: '',
+      menuLink: '',
+      orderNum: '0',
+      menuIcon: '',
+      isNewWindow: false,
+      parentId: null,
     },
     defaultItem: {
       id: null,
-      resourceName: '',
-      resourceType: 'API',
-      requestMethod: 'GET',
-      resourceUrl: '',
+      menuName: '',
+      menuLink: '',
+      orderNum: '0',
+      menuIcon: '',
+      isNewWindow: false,
+      parentId: null,
     },
-    resource_type_items: [
-      {text: i18n.t("lang.api"), value: "API"},
-      {text: i18n.t("lang.menu"), value: "MENU"},
-      {text: i18n.t("lang.button"), value: "BUTTON"},
-    ],
-    request_method_items: [
-      {text: "GET", value: "GET"},
-      {text: "POST", value: "POST"},
-      {text: "PUT", value: "PUT"},
-      {text: "DELETE", value: "DELETE"},
+    isNewWindow: [
+      {text: i18n.t("lang.yes"), value: true},
+      {text: i18n.t("lang.no"), value: false},
     ],
   }),
 
@@ -235,7 +266,7 @@ export default {
       let params = {};
       params.page = this.options.page;
       params.rows = this.options.itemsPerPage;
-      getAllPermissionList(params).then(res => {
+      getAllMenu(params).then(res => {
         console.log(res);
         this.desserts = res.data.data;
         this.options.serverItemsLength = res.data.total;
@@ -261,7 +292,7 @@ export default {
     },
 
     deleteItemConfirm() {
-      deletePermissionById({
+      deleteSysMenu({
         id: this.editedItem.id
       }).then(res => {
         if (res.code === 200) {
@@ -295,7 +326,7 @@ export default {
       } else {
         this.desserts.push(this.editedItem)
       }
-      editPermission(this.editedItem).then(res => {
+      editSysMenu(this.editedItem).then(res => {
         if (res.code === 200) {
           this.initialize();
         } else {
