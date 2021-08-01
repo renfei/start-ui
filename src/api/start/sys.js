@@ -35,3 +35,15 @@ export const editSysMenu = (params) => {
 export const deleteSysMenu = (params) => {
     return deleteRequest(Signature('/api/sys/menu'), params)
 };
+
+export const getAllRole = (params) => {
+    return getRequest(Signature('/api/sys/role'), params)
+};
+
+export const editSysRole = (params) => {
+    return postRequest(Signature('/api/sys/role'), params)
+};
+
+export const deleteSysRole = (params) => {
+    return deleteRequest(Signature('/api/sys/role'), params)
+};

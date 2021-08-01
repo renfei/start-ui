@@ -5,6 +5,7 @@ export const lang = {
     account: "账户",
     actions: "操作",
     api: "接口",
+    api_permission: "接口权限",
     // b
     button: "按钮",
     // c
@@ -14,6 +15,7 @@ export const lang = {
     characters: "字符",
     close: "关闭",
     // d
+    delete: "删除",
     delete_alert: "是否确认删除此数据？",
     // e
     edit_item: "编辑",
@@ -33,6 +35,7 @@ export const lang = {
     menu: "菜单",
     menu_icon: "菜单图标",
     menu_management: "菜单管理",
+    menu_permission: "菜单权限",
     menu_name: "菜单名称",
     menu_link: "菜单链接",
     // n
@@ -56,6 +59,7 @@ export const lang = {
     resource_management: "资源管理",
     resource_alert: "此功能仅限专业运维技术人员使用，禁止普通管理员或用户操作！",
     reset: "重置",
+    role_management: "角色管理",
     // s
     save: "保存",
     sign_in: "登录",

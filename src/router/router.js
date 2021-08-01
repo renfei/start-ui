@@ -3,6 +3,7 @@ import Home from "@/pages/console/Home"
 import SignIn from "@/pages/SignIn"
 import Resources from "@/pages/console/sys/Resources"
 import Menu from "@/pages/console/sys/Menu"
+import Role from "@/pages/console/sys/Role"
 
 const signInRouter = {
     path: '/signIn',
@@ -27,6 +28,9 @@ const consoleRouter = {
         },
         {
             path: 'console/sys/menu', meta: {title: "Menu"}, name: 'menu', component: Menu
+        },
+        {
+            path: 'console/sys/role', meta: {title: "Role"}, name: 'role', component: Role
         },
     ]
 }

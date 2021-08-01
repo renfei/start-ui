@@ -2,75 +2,79 @@ export const lang = {
     // #
     _2fa: "2FA",
     // a
-    account: "账户",
-    actions: "操作",
-    api: "接口",
+    account: "アカウント",
+    actions: "アクション",
+    api: "インターフェース",
+    api_permission: "インターフェイスのアクセス許可",
     // b
-    button: "按钮",
+    button: "ボタン",
     // c
-    cancel: "取消",
-    create: "创建",
-    create_account: "创建账户",
-    characters: "字符",
-    close: "关闭",
+    cancel: "キャンセル",
+    create: "作成",
+    create_account: "アカウントの作成",
+    characters: "文字",
+    close: "閉じる",
     // d
-    delete_alert: "是否确认删除此数据？",
+    delete: "削除",
+    delete_alert: "このデータを削除してもよろしいですか？",
     // e
-    edit_item: "编辑",
+    edit_item: "編集",
     // f
-    forgot_password: "忘记密码",
-    forbidden_403: "权限不足，访问被禁止！",
+    forgot_password: "パスワードを忘れた",
+    forbidden_403: "権限が不十分です、アクセスは禁止されています！",
     // g
     // h
     // i
-    is_new_window: "新窗口打开",
+    is_new_window: "新しいウィンドウが開きます",
     // j
     // k
     // l
-    loading: "载入中...",
+    loading: "読み込み中...",
     // m
     max: "最大值",
-    menu: "菜单",
-    menu_icon: "菜单图标",
-    menu_management: "菜单管理",
-    menu_name: "菜单名称",
-    menu_link: "菜单链接",
+    menu: "メニュー",
+    menu_icon: "メニューアイコン",
+    menu_management: "メニュー管理",
+    menu_permission: "メニュー権限",
+    menu_name: "メニュー名",
+    menu_link: "メニューリンク",
     // n
-    next: "下一步",
-    new_item: "新建",
-    no: "否",
-    no_data: "暂无数据",
+    next: "次へ",
+    new_item: "新規",
+    no: "いいえ",
+    no_data: "一時的にデータがありません",
     // o
-    order_num: "排序序号",
-    ok: "确定",
+    order_num: "シーケンス番号",
+    ok: "わかった",
     // p
-    password: "密码",
-    parent_id: "父级ID",
+    password: "パスワード",
+    parent_id: "親ID",
     // q
     // r
-    required: "必须项",
-    request_method: "请求方式",
-    resource_name: "资源名称",
-    resource_type: "资源类型",
-    resource_url: "资源地址",
-    resource_management: "资源管理",
-    resource_alert: "此功能仅限专业运维技术人员使用，禁止普通管理员或用户操作！",
-    reset: "重置",
+    required: "必須アイテム",
+    request_method: "リクエストメソッド",
+    resource_name: "リソース名",
+    resource_type: "リソースタイプ",
+    resource_url: "リソースアドレス",
+    resource_management: "リソース管理",
+    resource_alert: "この機能は、専門の運用および保守技術者のみを対象としており、通常の管理者またはユーザーは操作を禁止されています！",
+    reset: "リセット",
+    role_management: "役割管理",
     // s
     save: "保存",
-    sign_in: "登录",
+    sign_in: "サインイン",
     // t
-    two_factor_authentication: "双因素认证",
+    two_factor_authentication: "2要素認証",
     // u
-    use: "使用",
-    use_your: "使用您的",
-    user_name: "用户名",
+    use: "使用する",
+    use_your: "あなたの",
+    user_name: "ユーザー名",
     // v
     // w
-    welcome: "欢迎",
+    welcome: "ようこそようこそ",
     // x
     // y
-    yes: "是",
-    your: "您的"
+    yes: "はいはい",
+    your: "あなた"
     // z
 }

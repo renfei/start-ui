@@ -5,6 +5,7 @@ export const lang = {
     account: "Account",
     actions: "Actions",
     api: "API",
+    api_permission: "API Permission",
     // b
     button: "Button",
     // c
@@ -14,6 +15,7 @@ export const lang = {
     characters: "Characters",
     close: "Close",
     // d
+    delete: "Delete",
     delete_alert: "Are you sure you want to delete this item?",
     // e
     edit_item: "Edit Item",
@@ -33,6 +35,7 @@ export const lang = {
     menu: "Menu",
     menu_icon: "Icon",
     menu_management: "Menu Management",
+    menu_permission: "Menu Permission",
     menu_name: "Name",
     menu_link: "Link",
     // n
@@ -56,6 +59,7 @@ export const lang = {
     resource_management: "Resource Management",
     resource_alert: "This function is only for professional operation and maintenance technicians!",
     reset: "Reset",
+    role_management: "Role Management",
     // s
     save: "Save",
     sign_in: "Sign in",
