@@ -4,6 +4,7 @@ import SignIn from "@/pages/SignIn"
 import Resources from "@/pages/console/sys/Resources"
 import Menu from "@/pages/console/sys/Menu"
 import Role from "@/pages/console/sys/Role"
+import TinyMCE from "@/components/TinyMCE"
 
 const signInRouter = {
     path: '/signIn',
@@ -35,8 +36,16 @@ const consoleRouter = {
     ]
 }
 
+const devRouter = {
+    path: '/dev',
+    name: 'devRouter',
+    component: TinyMCE,
+    children: []
+}
+
 const routers = [
     signInRouter,
-    consoleRouter
+    consoleRouter,
+    devRouter
 ];
 export default routers

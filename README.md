@@ -34,6 +34,10 @@ Material is an adaptable system of guidelines, components, and tools that suppor
 
 Supports multi-language internationalization, and only needs to translate language packs to be compatible with different language environments.
 
+### TinyMCE
+
+TinyMCE is an easy-to-use and powerful WYSIWYG rich text editor. Similar programs are: UEditor, Kindeditor, Simditor, CKEditor, wangEditor, Suneditor, froala, etc.
+
 ## Project setup
 ```
 yarn install

@@ -7,7 +7,7 @@
 [![Actions Status](https://github.com/renfei/start-ui/workflows/build/badge.svg)](https://github.com/renfei/start-ui/actions/workflows/build.yml)
 ![license](https://img.shields.io/github/license/renfei/start-ui.svg)
 
-本项目是 [Start](https://github.com/renfei/start) 的子项目，作为前后端分离开发而配合主项目 RESTful API 接口提供的配套前端UI界面。
+本项目是 [StartD](https://github.com/renfei/startd) 的子项目，作为前后端分离开发而配合主项目 RESTful API 接口提供的配套前端UI界面。
 本人并非前端专业，此项目仅供参考使用。
 
 ## 项目代码仓库
@@ -33,6 +33,10 @@ Material 是由 Google 推出的一个适应性强的指南、组件和工具系
 ### vue-i18n
 
 支持多语言国际化，只需翻译语言包即可兼容不同语言环境。
+
+### TinyMCE
+
+TinyMCE是一款易用、且功能强大的所见即所得的富文本编辑器。同类程序有：UEditor、Kindeditor、Simditor、CKEditor、wangEditor、Suneditor、froala等等。
 
 ## 项目开始
 
